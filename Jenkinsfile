@@ -5,6 +5,10 @@ pipeline {
          githubProjectProperty(projectUrlStr: "https://github.com/Alien-Labs-MC/patreon-java-updated")
     }
 
+    environment {
+        MAVEN_DEPLOY = credentials('MAVEN_DEPLOY')
+    }
+
     triggers {
         githubPush()
     }
