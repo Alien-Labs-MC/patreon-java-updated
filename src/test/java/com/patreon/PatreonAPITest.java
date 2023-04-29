@@ -1,22 +1,20 @@
 package com.patreon;
 
+import java.nio.charset.Charset;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import com.github.jasminb.jsonapi.JSONAPIDocument;
 import com.patreon.resources.Campaign;
 import com.patreon.resources.Pledge;
 import com.patreon.resources.RequestUtil;
 import com.patreon.resources.User;
 import junit.framework.TestCase;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.hc.core5.http.NameValuePair;
+import org.apache.hc.core5.net.URLEncodedUtils;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Matchers;
 import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
-
-import java.nio.charset.Charset;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;

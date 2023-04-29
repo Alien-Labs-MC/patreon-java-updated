@@ -1,17 +1,17 @@
 package com.patreon;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import org.apache.http.client.utils.URIBuilder;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Calendar;
 import java.util.Date;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import org.apache.hc.core5.net.URIBuilder;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PatreonOAuth {
 
@@ -34,16 +34,17 @@ public class PatreonOAuth {
   }
 
   public String getAuthorizationURL() {
-    URIBuilder builder = null;
+    URIBuilder builder;
     try {
       builder = new URIBuilder(PatreonAPI.BASE_URI + "/oauth2/authorize");
     } catch (URISyntaxException e) {
       LOG.error(e.getMessage());
+      return null;
     }
     builder.addParameter("response_type", "code");
     builder.addParameter("client_id", clientID);
     builder.addParameter("redirect_uri", redirectUri);
-    return builder.toString();
+    return builder.toString().replace("%20", "+");
   }
 
   public TokensResponse getTokens(String code) throws IOException {

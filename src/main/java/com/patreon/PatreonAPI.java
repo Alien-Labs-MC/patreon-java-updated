@@ -1,25 +1,34 @@
 package com.patreon;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.github.jasminb.jsonapi.*;
+import com.github.jasminb.jsonapi.DeserializationFeature;
+import com.github.jasminb.jsonapi.JSONAPIDocument;
+import com.github.jasminb.jsonapi.Link;
+import com.github.jasminb.jsonapi.Links;
+import com.github.jasminb.jsonapi.ResourceConverter;
 import com.patreon.resources.Campaign;
 import com.patreon.resources.Pledge;
 import com.patreon.resources.RequestUtil;
 import com.patreon.resources.User;
 import com.patreon.resources.shared.BaseResource;
 import com.patreon.resources.shared.Field;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.hc.core5.http.NameValuePair;
+import org.apache.hc.core5.net.URIBuilder;
+import org.apache.hc.core5.net.URLEncodedUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.*;
 
 public class PatreonAPI {
   /**
@@ -169,7 +178,7 @@ public class PatreonAPI {
     }
     String nextLinkString = nextLink.toString();
     try {
-      List<NameValuePair> queryParameters = URLEncodedUtils.parse(new URI(nextLinkString), "utf8");
+      List<NameValuePair> queryParameters = URLEncodedUtils.parse(new URI(nextLinkString), StandardCharsets.UTF_8);
       for (NameValuePair pair : queryParameters) {
         String name = pair.getName();
         if (name.equals("page[cursor]")) {
